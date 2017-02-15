@@ -76,81 +76,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        tryBluetoothButton = (Button) findViewById(R.id.tryBluetoothButton);
 
-        mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-
-        if (!mBluetoothAdapter.isEnabled()) {
-            Intent enableBluetooth = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-            startActivityForResult(enableBluetooth, 0);
-            Log.i("myStuff", "Bluetooth Enabled");
-            Toast toast = Toast.makeText(this, "Bluetooth enabled", Toast.LENGTH_LONG);
-            toast.show();
-        } else {
-            Log.i("myStuff", "Bluetooth Already Enabled");
-            Toast toast = Toast.makeText(this, "Bluetooth Already Enabled", Toast.LENGTH_LONG);
-            toast.show();
-
-        }
-
-        Set<BluetoothDevice> pairedDevices = mBluetoothAdapter.getBondedDevices();
-        if (pairedDevices.size() > 0) {
-            for (BluetoothDevice device : pairedDevices) {
-                if (device.getName().equals("13516c2499dc")) {
-                    mmDevice = device;
-                    Log.i("myStuff", "Device equals " + device.getName());
-                    Toast toast = Toast.makeText(this, "Device equals " + device.getName(), Toast.LENGTH_LONG);
-                    toast.show();
-                    break;
-                } else {
-                    Toast toast = Toast.makeText(this, "Penistrakter", Toast.LENGTH_LONG);
-                    toast.show();
-                }
-            }
-        }
-
-
-        try {
-            mmSocket = (BluetoothSocket) mmDevice.getClass().getMethod("createRfcommSocket", new Class[]{int.class}).invoke(mmDevice, 1);
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        }
-        Log.d("DEBUG CRASH", "mmSocket");
-        Class<?> clazz = mmSocket.getRemoteDevice().getClass();
-        Log.d("DEBUG CRASH", "clazz");
-        Class<?>[] paramTypes = new Class<?>[]{Integer.TYPE};
-        Log.d("DEBUG CRASH", "paramTypes");
-        Method m = null;
-        try {
-            m = clazz.getMethod("createRfcommSocket", paramTypes);
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        }
-        Log.d("DEBUG CRASH", "getMethod");
-        Object[] params = new Object[]{Integer.valueOf(1)};
-        Log.d("DEBUG CRASH", "newobject[]");
-
-        fallbackSocket = null;
-        try {
-            fallbackSocket = (BluetoothSocket) m.invoke(mmSocket.getRemoteDevice(), params);
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        }
-        Log.d("DEBUG CRASH", "fallbackSocket");
-        try {
-            fallbackSocket.connect();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+        init();
     }
 
     /**
@@ -187,5 +114,88 @@ public class MainActivity extends AppCompatActivity {
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         AppIndex.AppIndexApi.end(client, getIndexApiAction());
         client.disconnect();
+    }
+
+    public void init() {
+        tryBluetoothButton = (Button) findViewById(R.id.tryBluetoothButton);
+        mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+
+        boolean connectedToRobot = false;
+
+        if (!mBluetoothAdapter.isEnabled()) {
+            Intent enableBluetooth = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+            startActivityForResult(enableBluetooth, 0);
+            Log.i("myStuff", "Bluetooth Enabled");
+            Toast toast = Toast.makeText(this, "Bluetooth enabled", Toast.LENGTH_LONG);
+            toast.show();
+        } else {
+            Log.i("myStuff", "Bluetooth Already Enabled");
+            Toast toast = Toast.makeText(this, "Bluetooth Already Enabled", Toast.LENGTH_LONG);
+            toast.show();
+
+        }
+
+        Set<BluetoothDevice> pairedDevices = mBluetoothAdapter.getBondedDevices();
+        if (pairedDevices.size() > 0) {
+            for (BluetoothDevice device : pairedDevices) {
+                if (device.getName().equals("13516c2499dc")) {
+                    mmDevice = device;
+                    Log.i("myStuff", "Device equals " + device.getName());
+                    connectedToRobot = true;
+                    Toast toast = Toast.makeText(this, "Device equals " + device.getName(), Toast.LENGTH_LONG);
+                    toast.show();
+                    break;
+                } else {
+                    Toast toast = Toast.makeText(this, "Penistrakter", Toast.LENGTH_LONG);
+                    toast.show();
+                }
+            }
+        }
+
+
+        if(connectedToRobot) {
+
+            try {
+                mmSocket = (BluetoothSocket) mmDevice.getClass().getMethod("createRfcommSocket", new Class[]{int.class}).invoke(mmDevice, 1);
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+            } catch (NoSuchMethodException e) {
+                e.printStackTrace();
+            }
+            Log.d("DEBUG CRASH", "mmSocket");
+            Class<?> clazz = mmSocket.getRemoteDevice().getClass();
+            Log.d("DEBUG CRASH", "clazz");
+            Class<?>[] paramTypes = new Class<?>[]{Integer.TYPE};
+            Log.d("DEBUG CRASH", "paramTypes");
+            Method m = null;
+            try {
+                m = clazz.getMethod("createRfcommSocket", paramTypes);
+            } catch (NoSuchMethodException e) {
+                e.printStackTrace();
+            }
+            Log.d("DEBUG CRASH", "getMethod");
+            Object[] params = new Object[]{Integer.valueOf(1)};
+            Log.d("DEBUG CRASH", "newobject[]");
+
+            fallbackSocket = null;
+            try {
+                fallbackSocket = (BluetoothSocket) m.invoke(mmSocket.getRemoteDevice(), params);
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+            }
+            Log.d("DEBUG CRASH", "fallbackSocket");
+            try {
+                fallbackSocket.connect();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 }
