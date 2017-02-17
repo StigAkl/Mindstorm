@@ -1,36 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_main"
+    android:id="@+id/controls"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
+    android:background="@color/backgroundColor"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.nichlasanynes.mindstormapp.MainActivity">
+    tools:context="com.example.nichlasanynes.mindstormapp.MainActivity"
+    android:weightSum="1">
 
-    <Button
-        android:backgroundTint="@color/buttonColor"
-        android:layout_width="180dp"
-        android:layout_height="60dp"
-        android:text="Go Forward"
-        android:onClick="controlRobot"
-        android:tag="a"
-        android:id="@+id/tryBluetoothButton"
-        android:layout_marginTop="152dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignLeft="@+id/button"
-        android:layout_alignStart="@+id/button" />
+    <EditText
+        android:id="@+id/textToSpeechText"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:hint="Text to speech" />
 
-    <Button
-        android:backgroundTint="@color/buttonColor"
-        android:text="Go Backward"
-        android:layout_width="180dp"
-        android:layout_height="60dp"
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        app:srcCompat="@drawable/arrow_left"
+        android:id="@+id/turnLeft"
+        android:tag="@string/turnLeft"
         android:onClick="controlRobot"
-        android:tag="b"
+        android:layout_alignTop="@+id/middle"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        app:srcCompat="@drawable/arrow_up"
+        android:id="@+id/forward"
+        android:tag="@string/forward"
+        android:layout_above="@+id/turnLeft"
+        android:layout_alignLeft="@+id/middle"
+        android:layout_alignStart="@+id/middle"
+        android:layout_marginBottom="15dp" />
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        app:srcCompat="@drawable/arrow_right"
+        android:id="@+id/turnRight"
+        android:onClick="controlRobot"
+        android:tag="@string/turnRight"
+        android:layout_alignTop="@+id/middle"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        app:srcCompat="@drawable/arrow_down"
+        android:onClick="controlRobot"
+        android:id="@+id/backward"
+        android:tag="@string/backward"
+        android:layout_marginBottom="20dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignLeft="@+id/middle"
+        android:layout_alignStart="@+id/middle" />
+
+    <ImageView
+        android:layout_width="100dp"
+        app:srcCompat="@drawable/button_middle"
+        android:id="@+id/middle"
+        android:layout_height="100dp"
+        android:tag="@string/stopMotors"
+        android:onClick="controlRobot"
+        android:layout_above="@+id/backward"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp" />
+
+    <ImageView
+        android:text="TESKST"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
         android:id="@+id/button"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:onClick="controlRobot"
+        android:layout_below="@+id/textToSpeechText"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:tag="@string/textToSpeech"
+        android:background="@drawable/button_middle" />
+
+    <TextView
+        android:text="Send Message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView2"
+        android:layout_marginRight="25dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginBottom="16dp"
+        android:layout_alignBottom="@+id/button"
+        android:layout_alignRight="@+id/button"
+        android:layout_alignEnd="@+id/button" />
+
+
 </RelativeLayout>

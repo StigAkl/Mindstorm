@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">MindstormApp</string>
+    <string name="forward">a</string>
+    <string name="backward">b</string>
+    <string name="turnLeft">d</string>
+    <string name="turnRight">c</string>
+    <string name="textToSpeech">textToSpeech</string>
+    <string name="ttsHint">Text to speech</string>
+    <string name="textToSpeechButton">Send</string>
+    <string name="stopMotors">e</string>
 </resources>
