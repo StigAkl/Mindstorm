@@ -67,7 +67,7 @@
 
     <ImageView
         android:layout_width="100dp"
-        app:srcCompat="@drawable/button_middle"
+        app:srcCompat="@drawable/arrow_mid"
         android:id="@+id/middle"
         android:layout_height="100dp"
         android:tag="@string/stopMotors"
@@ -86,7 +86,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:tag="@string/textToSpeech"
-        android:background="@drawable/button_middle" />
+        android:background="@drawable/arrow_mid" />
 
     <TextView
         android:text="Send Message"
