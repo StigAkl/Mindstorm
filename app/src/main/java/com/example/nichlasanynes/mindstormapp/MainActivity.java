@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        showLoading();
+        /* showLoading();
         hideControls();
 
         Utils.wait(3000);
@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
         initListeners();
         hideLoading();
         showControls();
+        */
 
     }
 
